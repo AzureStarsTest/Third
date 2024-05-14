@@ -25,6 +25,7 @@ jobs:
 
   test-external:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'StarryTest'
     needs: test
     strategy:
       fail-fast: false
