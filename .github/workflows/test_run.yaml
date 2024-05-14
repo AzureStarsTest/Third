@@ -23,22 +23,33 @@ jobs:
       - name: Run tests
         run: cargo run
 
-  test-external:
+  test-local:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'StarryTest'
-    needs: test
     strategy:
       fail-fast: false
     steps:
-    - uses: convictional/trigger-workflow-and-wait@v1.6.1
-      with:
-        owner: StarryTest
-        repo: Top
-        github_token: ${{ secrets.STARRYOS }}
-        github_user: Azure-stars
-        workflow_file_name: test_run.yaml
-        wait_interval: 10
-        client_payload: '{"commit": "${{ github.sha }}"}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
+      - name: Create StarryOS
+        run: |
+          git clone git@github.com:StarryTest/Top.git
+          cd Top
+      - uses: StarryTest/Top/.github/workflows/test_run.yaml@main
+      
+  # test-external:
+  #   runs-on: ubuntu-latest
+  #   if: github.repository_owner == 'StarryTest'
+  #   needs: test
+  #   strategy:
+  #     fail-fast: false
+  #   steps:
+  #   - uses: convictional/trigger-workflow-and-wait@v1.6.1
+  #     with:
+  #       owner: StarryTest
+  #       repo: Top
+  #       github_token: ${{ secrets.STARRYOS }}
+  #       github_user: Azure-stars
+  #       workflow_file_name: test_run.yaml
+  #       wait_interval: 10
+  #       client_payload: '{"commit": "${{ github.sha }}"}'
+  #       propagate_failure: true
+  #       trigger_workflow: true
+  #       wait_workflow: true
