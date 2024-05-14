@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        rust-toolchain: [nightly, nightly-2024-05-02]
+        rust-toolchain: [nightly]
     env:
       RUSTUP_TOOLCHAIN: ${{ matrix.rust-toolchain }}
     steps:
@@ -31,11 +31,11 @@ jobs:
     steps:
     - uses: convictional/trigger-workflow-and-wait@v1.6.1
       with:
-        owner: Azure_stars
+        owner: StarryTest
         repo: Top
         github_token: ${{ secrets.GITHUB_TOKEN }}
         github_user: Azure_stars
-        workflow_file_name: test-run.yml
+        workflow_file_name: test_run.yml
         wait_interval: 10
         client_payload: '{"commit": "${{ github.sha }}"}'
         propagate_failure: true
