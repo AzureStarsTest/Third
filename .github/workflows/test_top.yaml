@@ -1,0 +1,9 @@
+name: test-run
+
+on: 
+  push:
+  pull_request:
+
+jobs:
+  test-local:
+    uses: StarryTest/Top/.github/workflows/test_run.yaml@main
