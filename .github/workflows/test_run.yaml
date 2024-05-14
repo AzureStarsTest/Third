@@ -1,0 +1,45 @@
+name: test-run
+
+on: 
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: 
+        rust-toolchain: [nightly, nightly-2024-05-02]
+    env:
+      RUSTUP_TOOLCHAIN: ${{ matrix.rust-toolchain }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust-toolchain }}
+          components: rust-src, clippy, rustfmt
+          targets: x86_64-unknown-linux-gnu
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo install cargo-binutils
+      - name: Run tests
+        run: cargo run
+
+  test-external:
+    runs-on: ubuntu-latest
+    needs: test
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: Azure_stars
+        repo: StarryTest/Top
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_user: Azure_stars
+        workflow_file_name: test-run.yml
+        wait_interval: 10
+        client_payload: '{"commit": "${{ github.sha }}"}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true
