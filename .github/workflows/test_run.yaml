@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Create StarryOS
         run: |
+          sudo apt-get update
+          sudo apt-get install -y git
           git clone git@github.com:StarryTest/Top.git
           cd Top
       - uses: ./.github/workflows/test_top.yaml
