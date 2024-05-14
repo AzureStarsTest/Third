@@ -28,6 +28,7 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+      - uses: actions/checkout@v4
       - name: Create StarryOS
         run: |
           sudo apt-get update
