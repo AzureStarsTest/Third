@@ -33,7 +33,7 @@ jobs:
       with:
         owner: StarryTest
         repo: Top
-        github_token: ${{ secrets.PERSONAL_TOKEN }}
+        github_token: ${{ secrets.STARRYOS }}
         github_user: Azure-stars
         workflow_file_name: test_run.yml
         wait_interval: 10
