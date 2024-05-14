@@ -4,4 +4,4 @@ runs:
   using: "composite"
   steps:
   - name: Test run
-  	uses: StarryTest/Top/.github/workflows/test_run.yaml@main
+    uses: StarryTest/Top/.github/workflows/test_run.yaml@main
