@@ -1,0 +1,7 @@
+name: Test for Top
+
+runs:
+  using: "composite"
+  steps:
+  - name: Test run
+  	uses: StarryTest/Top/.github/workflows/test_run.yaml@main
